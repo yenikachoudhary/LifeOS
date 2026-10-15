@@ -1,0 +1,52 @@
+services:
+  # 1. LifeOS Auth Service (Node.js / Express)
+  - type: web
+    name: lifeos-auth-service
+    env: node
+    rootDir: backend/auth-service
+    buildCommand: npm install
+    startCommand: npm start
+    plan: free
+    healthCheckPath: /health
+    envVars:
+      - key: PORT
+        value: 10000
+      - key: MONGODB_URI
+        sync: false
+      - key: JWT_SECRET
+        sync: false
+      - key: CORS_ORIGINS
+        value: "*"
+
+  # 2. LifeOS API Service (Python / FastAPI)
+  - type: web
+    name: lifeos-api-service
+    env: python
+    rootDir: backend/api-service
+    buildCommand: pip install -r requirements.txt
+    startCommand: uvicorn app.main:app --host 0.0.0.0 --port $PORT
+    plan: free
+    healthCheckPath: /health
+    envVars:
+      - key: MONGODB_URI
+        sync: false
+      - key: DB_NAME
+        value: lifeos
+      - key: JWT_SECRET
+        sync: false
+      - key: CORS_ORIGINS
+        value: "*"
+
+  # 3. LifeOS Frontend (Next.js - can also be hosted on Vercel)
+  - type: web
+    name: lifeos-frontend
+    env: node
+    rootDir: frontend
+    buildCommand: npm install && npm run build
+    startCommand: npm start
+    plan: free
+    envVars:
+      - key: NEXT_PUBLIC_AUTH_URL
+        sync: false
+      - key: NEXT_PUBLIC_API_URL
+        sync: false

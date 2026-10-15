@@ -1,0 +1,12 @@
+# Optional: a local MongoDB so you don't need an Atlas account while developing.
+#   docker compose up -d
+services:
+  mongo:
+    image: mongo:7
+    restart: unless-stopped
+    ports:
+      - "27017:27017"
+    volumes:
+      - lifeos-mongo:/data/db
+volumes:
+  lifeos-mongo:

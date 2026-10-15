@@ -1,0 +1,18 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  body { @apply bg-[#F5F3FF] text-deep font-sans antialiased; }
+  h1, h2, h3 { @apply font-display font-extrabold; }
+  ::selection { background: #E3FC87; color: #253A82; }
+}
+
+@layer components {
+  .card { @apply rounded-bubble bg-white p-5 shadow-[0_6px_0_0_rgba(37,58,130,0.08)] transition-transform duration-200; }
+  .card-hover:hover { @apply -translate-y-1; }
+  .btn { @apply inline-flex items-center justify-center gap-2 rounded-full bg-deep px-5 py-2.5 font-display font-bold text-white transition hover:-translate-y-0.5 hover:bg-[#1c2d68] disabled:cursor-not-allowed disabled:opacity-50; }
+  .btn-soft { @apply inline-flex items-center justify-center gap-2 rounded-full bg-sky px-4 py-2 font-display font-bold text-deep transition hover:-translate-y-0.5 hover:bg-peri; }
+  .input { @apply w-full rounded-full border-2 border-sky bg-white px-4 py-2.5 text-deep outline-none transition placeholder:text-deep/40 focus:border-peri; }
+  .chip { @apply inline-flex items-center rounded-full px-3 py-1 text-xs font-bold; }
+}
